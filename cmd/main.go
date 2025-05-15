@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/FathiMohammadDev/shopping-cart/cmd/api"
 	"github.com/FathiMohammadDev/shopping-cart/db"
 	"github.com/go-sql-driver/mysql"
 )
@@ -13,6 +14,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	server := api.NewAPIServer(":8080", db)
+	server.Run()
+
 }
 
 func initStorage(db *sql.DB) {
