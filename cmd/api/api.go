@@ -3,6 +3,7 @@ package api
 import (
 	"database/sql"
 
+	"github.com/FathiMohammadDev/shopping-cart/services/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +20,9 @@ func (s *APIServer) Run() error {
 	server := gin.Default()
 	subrouter := server.Group("api/v1")
 	
+	userStore := user.NewUserStore(s.db)
+	userHandler := user.NewHandler(userStore)
+	userHandler.RegisterRoutes(subrouter)
 
-	
 	return server.Run(s.addr)
 }
